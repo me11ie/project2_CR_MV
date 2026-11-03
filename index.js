@@ -1,4 +1,6 @@
 const express = require("express");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 
 async function startServer() {
   // Cargar lowdb y abrir o crear la base de datos
@@ -6,7 +8,14 @@ async function startServer() {
   const db = await JSONFilePreset("db.json", { sentences: [] });
 
   const app = express();
+// Express and Socket.io share the same server
+const server = createServer(app);
+const io = new Server(server);
 
+// Notify each browser when it connects or reconnects
+io.on("connection", (socket) => {
+  socket.emit("story-updated");
+});
   // Permitir que el servidor reciba datos JSON
   app.use(express.json());
 
@@ -36,13 +45,15 @@ async function startServer() {
 
     db.data.sentences.push(sentence.trim());
     await db.write();
+    // Tell every connected browser to load the updated story
+io.emit("story-updated");
 
     response.status(201).json(db.data);
   });
 
   const port = process.env.PORT || 3000;
 
-  app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
   });
 }

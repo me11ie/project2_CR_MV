@@ -1,0 +1,143 @@
+/* Colors and sizing */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 48px 24px;
+  min-height: 100vh;
+  background: #edbfd0;
+  color: #641d34;
+  font-family: Georgia, serif;
+}
+
+/* The cream paper where we write */
+section {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 32px;
+  background: #fff8eb;
+  border: 1px solid #641d34;
+  box-shadow: 10px 10px 0 #b55b78;
+}
+
+/* A handwritten title using Melanie's existing font */
+section::before {
+  content: "Cadavre exquis";
+  display: block;
+  margin-bottom: 24px;
+  font-family: "Niconne", cursive;
+  font-size: clamp(64px, 12vw, 100px);
+  line-height: 1;
+  text-align: center;
+  transform: rotate(-5deg);
+}
+
+.page_description {
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* The previous writer's fragment */
+#latest-line {
+  margin: 32px 0;
+  padding: 24px;
+  background: #f6dce5;
+  border-top: 1px dashed #641d34;
+  border-bottom: 1px dashed #641d34;
+  font-size: 22px;
+  font-style: italic;
+  overflow-wrap: anywhere;
+}
+
+label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+input {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #641d34;
+  border-radius: 0;
+  background: #fffdf7;
+  color: #641d34;
+  font: inherit;
+  font-size: 18px;
+}
+
+button {
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 1px solid #641d34;
+  background: #641d34;
+  color: #fff8eb;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #8b3150;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+input:focus-visible,
+button:focus-visible {
+  outline: 3px solid #b55b78;
+  outline-offset: 4px;
+}
+
+.story_button {
+  margin-top: 16px;
+}
+
+/* The reveal sits below the writing paper */
+#reveal-button {
+  display: block;
+  margin: 32px auto;
+  background: #fff8eb;
+  color: #641d34;
+}
+
+#reveal-button:hover {
+  background: #f6dce5;
+}
+
+#full-story {
+  max-width: 640px;
+  margin: 24px auto;
+  padding: 32px;
+  background: #fff8eb;
+  border: 1px solid #641d34;
+  box-shadow: 6px 6px 0 #b55b78;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+#full-story p + p {
+  border-top: 1px dashed #b55b78;
+  padding-top: 20px;
+}
+
+/* Keep the reveal hidden until JavaScript opens it */
+[hidden] {
+  display: none !important;
+}
+
+/* Smaller screens */
+@media (max-width: 600px) {
+  body {
+    padding: 24px 16px;
+  }
+
+  section {
+    padding: 28px 20px;
+    box-shadow: 5px 5px 0 #b55b78;
+  }
+}

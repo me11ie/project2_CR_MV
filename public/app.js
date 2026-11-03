@@ -95,5 +95,13 @@ revealButton.addEventListener("click", () => {
     fullStory.appendChild(paragraph);
   }
 
-  fullStory.hidden = false;
+   fullStory.hidden = false;
+});
+
+// Connect this browser to our server
+const socket = io();
+
+// Update the story when the server announces a change
+socket.on("story-updated", () => {
+  loadStory();
 });
