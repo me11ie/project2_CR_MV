@@ -6,7 +6,12 @@ const latestLine = document.getElementById("latest-line");
 const revealButton = document.getElementById("reveal-button");
 const fullStory = document.getElementById("full-story");
 
+
+
+//variable to store reveal threshold
 const revealThreshold = 3;
+
+//variable to store user input story sentences 
 let savedSentences = [];
 
 // Show the most recent sentence
@@ -14,6 +19,9 @@ function showLatestSentence(data) {
   const sentences = data.sentences;
 
   savedSentences = sentences;
+
+  //show sentence count
+  document.getElementById('sentence-count').textContent = sentences.length + 1;
 
 // Make reveal available after three sentences
 revealButton.hidden = sentences.length < revealThreshold;
@@ -27,6 +35,7 @@ fullStory.hidden = true;
     latestLine.textContent = sentences[sentences.length - 1];
   }
 }
+
 
 // Ask the server for the saved story
 async function loadStory() {
