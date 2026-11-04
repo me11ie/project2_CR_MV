@@ -6,13 +6,17 @@ const latestLine = document.getElementById("latest-line");
 const revealButton = document.getElementById("reveal-button");
 const fullStory = document.getElementById("full-story");
 
+//variable to store initial user count
+let startingCount = null;
 
-
-//variable to store reveal threshold
-const revealThreshold = 3;
+//variable to store reveal threshold of story incrementation during session - make it unique for each user within a range of 3-5
+let revealThreshold = Math.floor(Math.random()*3)+ 3;
 
 //variable to store user input story sentences 
 let savedSentences = [];
+
+//starting binary for whether or not the user has added a sentence in this session
+let sessionSubmit = false; 
 
 // Show the most recent sentence
 function showLatestSentence(data) {
@@ -20,11 +24,16 @@ function showLatestSentence(data) {
 
   savedSentences = sentences;
 
+  // Set startingCount once, the first time this page loads
+  if (startingCount === null) {
+    startingCount = sentences.length;
+  }
+
   //show sentence count
   document.getElementById('sentence-count').textContent = sentences.length + 1;
 
-// Make reveal available after three sentences
-revealButton.hidden = sentences.length < revealThreshold;
+  // Make reveal available after three sentences since the sentence count at session start & user has submitted 
+  revealButton.hidden = !(sessionSubmit && sentences.length >= startingCount + revealThreshold);
 
 // Hide the previous reveal when the story updates
 fullStory.hidden = true;
@@ -80,6 +89,7 @@ async function submitSentence() {
       throw new Error(data.error || "Could not save your sentence.");
     }
 
+    sessionSubmit = true;
     showLatestSentence(data);
     input.value = "";
   } catch (error) {

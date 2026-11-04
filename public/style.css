@@ -25,7 +25,7 @@ section {
 
 /* A handwritten title using Melanie's existing font */
 section::before {
-  content: "Plumee Partagee";
+  content: "Plume Partagée";
   display: block;
   margin-bottom: 24px;
   font-family: "Niconne", cursive;
